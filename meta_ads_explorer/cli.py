@@ -332,5 +332,28 @@ def install_browser() -> None:
     subprocess.run(["playwright", "install", "chromium"], check=False)
 
 
+@app.command()
+def web(
+    port: int = typer.Option(8501, "--port", "-p"),
+    open_browser: bool = typer.Option(True, "--open/--no-open"),
+) -> None:
+    """Levantar la interfaz web (Streamlit) en el navegador."""
+    import subprocess
+    from pathlib import Path
+    app_file = Path(__file__).resolve().parent.parent / "streamlit_app.py"
+    if not app_file.exists():
+        console.print(f"[red]No encuentro {app_file}[/red]")
+        raise typer.Exit(1)
+    cmd = [
+        "streamlit", "run", str(app_file),
+        "--server.port", str(port),
+        "--browser.gatherUsageStats", "false",
+    ]
+    if not open_browser:
+        cmd += ["--server.headless", "true"]
+    console.print(f"[bold green]Abriendo Meta Ads Explorer en http://localhost:{port}[/bold green]")
+    subprocess.run(cmd)
+
+
 if __name__ == "__main__":
     app()

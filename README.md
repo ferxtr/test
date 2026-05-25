@@ -1,26 +1,97 @@
 # Meta Ads Library Explorer (`mae`)
 
-Herramienta CLI en Python para explorar la **Meta Ad Library** de forma inteligente:
-buscar anuncios, trackear anunciantes en el tiempo y analizar creatividades con Claude (vision).
+Herramienta para explorar la **Meta Ad Library** con una interfaz web:
+buscar anuncios, trackear anunciantes y analizar creatividades con Claude.
 
-> **Aclaración legal**: este programa scrapea el frontend público de la Ad Library
-> (no usa la API oficial de Graph), por lo que opera contra los ToS de Meta. Usalo en
-> entornos donde tengas autorización, con rate-limit prudente y sin distribuir datos
-> personales sensibles. Es una herramienta de research, no de producción a escala.
+## 🚀 Quickstart en 3 pasos (interfaz web)
 
-## Capacidades
+> Requiere tener **Python 3.10+** instalado. Si no lo tenés:
+> Windows/Mac → bajalo de https://www.python.org/downloads/ (marcá **"Add Python to PATH"** durante la instalación).
+> Linux → `sudo apt install python3 python3-venv python3-pip`.
+
+### Paso 1 — Clonar el proyecto
+
+Abrí una **terminal** (en Windows: "PowerShell" o "CMD"; en Mac/Linux: "Terminal") y pegá:
+
+```bash
+git clone https://github.com/ferxtr/test.git meta-ads-explorer
+cd meta-ads-explorer
+```
+
+### Paso 2 — Instalar (una sola vez)
+
+**Mac / Linux:**
+```bash
+bash install.sh
+```
+
+**Windows:**
+```bash
+install.bat
+```
+
+Esto crea un entorno virtual, instala las dependencias e instala Chrome para el scraper. Tarda 3-5 min la primera vez.
+
+> Después de instalar, abrí el archivo `.env` que se creó solo y pegá tu `ANTHROPIC_API_KEY` (sacala en https://console.anthropic.com/settings/keys). Sin esa key todo funciona menos el análisis con IA.
+
+### Paso 3 — Abrir la app
+
+**Mac / Linux:**
+```bash
+bash start.sh
+```
+
+**Windows:** doble click en `start.bat`.
+
+Se abre solo tu navegador en `http://localhost:8501` con la interfaz:
+
+- 🔍 **Buscar** — pegás palabra clave + país, le das "Buscar"
+- 📺 **Páginas trackeadas** — agregás cuentas a seguir y re-scrapeás con un click
+- 🤖 **Analizar con IA** — Claude mira las creatividades y devuelve ángulo, hook, pain points, calidad
+- 📊 **Reporte** — gráficos con los patrones encontrados
+- 📥 **Exportar** — descargás todo a CSV o JSON
+
+Cuando termines de usarla, cerrá la terminal. Para usarla otra vez: repetí el Paso 3.
+
+---
+
+## ¿Y subirlo a internet (que cualquiera pueda entrar a una URL)?
+
+**Vercel NO sirve** para esto — necesita correr un Chrome real durante varios minutos y guardar archivos, cosas que Vercel no permite. Para tener una URL pública usá:
+
+- **Render** (https://render.com) — tier gratuito, deploy desde GitHub con Docker.
+- **Railway** (https://railway.app) — $5 crédito inicial, deploy en 2 clicks.
+- **Streamlit Community Cloud** (https://streamlit.io/cloud) — gratis pero con limitaciones de browser.
+
+Si querés que te lo arme con uno de estos, decime cuál y te agrego el `Dockerfile` o config necesaria.
+
+> Alternativa **sin tener que instalar nada en tu compu**: usar **GitHub Actions** (workflow ya incluido en `.github/workflows/`) que corre el scraping en la nube de GitHub gratis y commitea los resultados al repo. Pero no tiene interfaz web, accedés a los datos descargando el archivo `meta_ads.db`.
+
+---
+
+## Aclaración legal
+
+Este programa scrapea el frontend público de la Ad Library (no usa la API oficial),
+por lo que opera contra los ToS de Meta. Usalo en entornos donde tengas autorización,
+con rate-limit prudente y sin distribuir datos personales. Es una herramienta de research,
+no de producción a escala.
+
+---
+
+## Si preferís usar comandos (terminal)
 
 | Comando             | Para qué sirve                                                          |
 | ------------------- | ----------------------------------------------------------------------- |
-| `mae search`        | Buscar por palabra clave en un país, persiste a SQLite                  |
+| `mae web`           | Abre la interfaz web (igual que `start.sh`)                             |
+| `mae search`        | Buscar por palabra clave en un país                                     |
 | `mae page`          | Scrapear todos los anuncios de una página y opcionalmente trackearla    |
 | `mae track`         | Listar / agregar páginas a la lista de tracking                         |
 | `mae snapshot`      | Re-scrapear todas las páginas trackeadas y registrar cambios            |
-| `mae analyze`       | Analizar copy + creatividades con Claude (vision) → JSON estructurado   |
-| `mae report`        | Reporte agregado: ángulos top, formatos, pain points, calidad promedio  |
+| `mae analyze`       | Analizar copy + creatividades con Claude                                |
+| `mae report`        | Reporte agregado en consola                                             |
 | `mae export`        | Exportar a CSV o JSON                                                   |
 
-## Instalación
+## Instalación manual (si los scripts fallan)
 
 ```bash
 python -m venv .venv
