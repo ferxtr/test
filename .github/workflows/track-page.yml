@@ -1,0 +1,73 @@
+name: Track a new page
+
+on:
+  workflow_dispatch:
+    inputs:
+      page:
+        description: 'page_id numérico o URL completa de Ad Library con view_all_page_id'
+        required: true
+      country:
+        description: 'País (ISO-2)'
+        default: 'AR'
+      notes:
+        description: 'Notas (opcional)'
+        required: false
+      max_ads:
+        description: 'Cuántos anuncios scrapear ya mismo'
+        default: '80'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ad-library-track
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    env:
+      MAE_COUNTRY: ${{ inputs.country }}
+      MAE_HEADLESS: 'true'
+      MAE_SCROLL_DELAY: '2.5'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}
+
+      - name: Install
+        run: |
+          pip install -e .
+          playwright install --with-deps chromium
+
+      - name: Scrape + track page
+        env:
+          PAGE: ${{ inputs.page }}
+          MAX_ADS: ${{ inputs.max_ads }}
+          NOTES: ${{ inputs.notes }}
+        run: |
+          ARGS=(page "$PAGE" --track --status all --max "$MAX_ADS")
+          if [ -n "$NOTES" ]; then ARGS+=(--notes "$NOTES"); fi
+          mae "${ARGS[@]}"
+
+      - name: Commit DB
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f meta_ads.db
+          if git diff --staged --quiet; then
+            echo "Sin cambios."
+          else
+            git commit -m "track: agregar página ${{ inputs.page }} [skip ci]"
+            git push
+          fi

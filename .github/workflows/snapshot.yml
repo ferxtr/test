@@ -1,0 +1,85 @@
+name: Daily Ad Library snapshot
+
+on:
+  schedule:
+    # 08:00 UTC todos los días (≈ 05:00 ART)
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+    inputs:
+      max_ads:
+        description: 'Anuncios por página'
+        default: '100'
+      analyze_limit:
+        description: 'Cuántos anuncios analizar con Claude'
+        default: '30'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ad-library-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      MAE_COUNTRY: ${{ vars.MAE_COUNTRY || 'AR' }}
+      MAE_HEADLESS: 'true'
+      MAE_SCROLL_DELAY: '2.5'
+      MAE_CLAUDE_MODEL: ${{ vars.MAE_CLAUDE_MODEL || 'claude-sonnet-4-6' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}
+
+      - name: Install dependencies
+        run: |
+          pip install -e .
+          playwright install --with-deps chromium
+
+      - name: Run snapshot of tracked pages
+        run: mae snapshot --max ${{ github.event.inputs.max_ads || 100 }}
+
+      - name: Analyze new ads with Claude
+        if: env.ANTHROPIC_API_KEY != ''
+        continue-on-error: true
+        run: mae analyze --limit ${{ github.event.inputs.analyze_limit || 30 }}
+
+      - name: Generate report
+        run: mae report > report.txt || true
+
+      - name: Commit DB + report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f meta_ads.db report.txt
+          if git diff --staged --quiet; then
+            echo "Sin cambios para commitear."
+          else
+            git commit -m "snapshot: actualizar DB y reporte [skip ci]"
+            git push
+          fi
+
+      - name: Upload run artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-${{ github.run_id }}
+          path: |
+            meta_ads.db
+            report.txt
+            creatives/
+          if-no-files-found: ignore
+          retention-days: 14

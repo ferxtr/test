@@ -100,7 +100,60 @@ en lote (el segundo análisis en adelante usa cache hit).
 
 Para ver la base directo: `sqlite3 meta_ads.db`.
 
-## Receta: tracking diario con cron
+## Correr en la nube con GitHub Actions
+
+El repo trae dos workflows listos para usar sin tener tu compu prendida.
+
+### Setup inicial (una sola vez)
+
+1. **Pushear a GitHub** (ya está hecho si seguiste el flujo).
+2. En el repo → **Settings → Secrets and variables → Actions**:
+   - **Secret** `ANTHROPIC_API_KEY` → tu clave de Claude (para el paso de análisis).
+   - **Variable** `MAE_COUNTRY` (opcional) → ISO-2 del país, default `AR`.
+   - **Variable** `MAE_CLAUDE_MODEL` (opcional) → `claude-sonnet-4-6` (default) o el que prefieras.
+3. En **Settings → Actions → General**, scrolleá hasta "Workflow permissions" y dejá
+   marcada **"Read and write permissions"** (necesario para que el bot pueda commitear
+   la DB de vuelta al repo).
+
+### Workflow 1 — Agregar páginas a tracking (manual)
+
+`.github/workflows/track-page.yml`
+
+En GitHub → **Actions → "Track a new page" → Run workflow**. Te pide:
+
+- `page`: el `page_id` numérico o la URL completa de Ad Library.
+- `country`: ISO-2 (default `AR`).
+- `notes`: nota opcional para recordar qué es esa página.
+- `max_ads`: cuántos anuncios traer en la primera pasada (default 80).
+
+Esto scrapea la página, la agrega a `tracked_pages` y commitea `meta_ads.db`.
+
+### Workflow 2 — Snapshot + análisis diario
+
+`.github/workflows/snapshot.yml`
+
+Corre **todos los días a las 08:00 UTC** (~05:00 ART) automáticamente:
+
+1. Re-scrapea cada página trackeada.
+2. Detecta nuevos anuncios y registra snapshots.
+3. Analiza los anuncios nuevos con Claude.
+4. Commitea `meta_ads.db` y `report.txt` al repo.
+5. Sube `meta_ads.db` + creatividades como artifact (descargable 14 días).
+
+También podés dispararlo a mano en **Actions → "Daily Ad Library snapshot" → Run workflow**.
+
+### Tip: cómo cambiar el horario
+
+Editá la línea `cron:` en `snapshot.yml`. Por ejemplo `'0 12 * * *'` para mediodía UTC.
+Formato: minuto / hora / día / mes / día-semana.
+
+### ¿Y la DB queda en el repo?
+
+Sí, `meta_ads.db` se commitea con `[skip ci]`. Para repos privados es ideal: tenés
+versionado del histórico de anuncios. Si la DB crece mucho (varios MB), considerá
+mover a un volumen externo o migrar a Postgres.
+
+## Receta alternativa: cron en tu máquina
 
 ```bash
 # crontab -e
