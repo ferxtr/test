@@ -1,0 +1,25 @@
+[project]
+name = "meta-ads-explorer"
+version = "0.1.0"
+description = "Explorador inteligente de la Meta Ad Library con scraping, tracking y análisis con IA"
+requires-python = ">=3.10"
+dependencies = [
+    "playwright>=1.45",
+    "typer>=0.12",
+    "rich>=13.7",
+    "httpx>=0.27",
+    "anthropic>=0.40",
+    "pydantic>=2.7",
+    "python-dateutil>=2.9",
+    "python-dotenv>=1.0",
+]
+
+[project.scripts]
+mae = "meta_ads_explorer.cli:app"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["meta_ads_explorer*"]
