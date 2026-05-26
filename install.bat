@@ -23,8 +23,8 @@ if not exist .venv (
 call .venv\Scripts\activate.bat
 
 echo Instalando dependencias (puede tardar 2-3 min)...
-pip install --quiet --upgrade pip
-pip install --quiet -e .
+python -m pip install --quiet --upgrade pip
+python -m pip install --quiet -e .
 
 echo Instalando Chrome para Playwright (puede tardar 1-2 min)...
 playwright install chromium
