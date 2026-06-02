@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriInteligente</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #f3f4f6; font-family: 'Segoe UI', sans-serif; }
+    .food-btn { transition: all .15s; cursor: pointer; }
+    .food-btn.selected { background: #16a34a; color: white; border-color: #16a34a; }
+    .food-btn:hover:not(.selected) { border-color: #16a34a; }
+    .progress-dot { width: 32px; height: 4px; border-radius: 2px; }
+    input:focus, select:focus { outline: none; border-color: #16a34a; }
+    .gender-btn { transition: all .15s; cursor: pointer; }
+    .gender-btn.active { background: #16a34a; color: white; border-color: #16a34a; }
+    #plan-screen { display: none; }
+    .meal-card { border-left: 4px solid #16a34a; }
+    @media print { .no-print { display: none; } }
+  </style>
+</head>
+<body class="min-h-screen py-6 px-4">
+
+  <!-- NAVBAR -->
+  <nav class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-1 text-green-700 font-bold text-lg cursor-pointer" onclick="showForm()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        nutri<span class="text-gray-800">inteligente</span>
+      </div>
+      <div class="flex items-center gap-6 text-sm font-medium text-gray-600">
+        <a href="#" onclick="showForm()" class="text-green-600 border-b-2 border-green-500 pb-0.5">Inicio</a>
+        <a href="#" onclick="showPlanIfReady()" class="hover:text-green-600">Mis Dietas</a>
+        <a href="#" class="hover:text-green-600">Perfil</a>
+        <button class="flex items-center gap-1 border border-gray-300 rounded-full px-4 py-1.5 hover:bg-gray-50">
+          Salir
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== FORMULARIO ===================== -->
+  <div id="form-screen" class="max-w-xl mx-auto mt-20 space-y-5">
+
+    <!-- MEDIDAS CORPORALES -->
+    <div class="bg-white rounded-2xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-1">
+        <div class="flex items-center gap-2">
+          <svg class="text-green-600" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <h2 class="font-bold text-gray-800 text-base">Medidas Corporales</h2>
+        </div>
+        <div class="flex gap-1">
+          <div class="progress-dot bg-green-500"></div>
+          <div class="progress-dot bg-gray-200"></div>
+        </div>
+      </div>
+      <p class="text-xs text-gray-500 mb-5">Completá tus datos para calcular tu dieta personalizada</p>
+      <div class="space-y-3">
+        <input id="weight" type="number" placeholder="Peso (kg)"
+          class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 focus:border-green-500" />
+        <input id="height" type="number" placeholder="Altura (cm)"
+          class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 focus:border-green-500" />
+        <input id="age" type="number" placeholder="Edad"
+          class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 focus:border-green-500" />
+        <select id="goal" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
+          <option value="">Objetivo</option>
+          <option value="adelgazar">Adelgazar</option>
+          <option value="masa">Ganar masa muscular</option>
+          <option value="mantenimiento">Mantenimiento</option>
+          <option value="salud">Salud y bienestar</option>
+        </select>
+        <select id="activity" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
+          <option value="">Nivel de actividad</option>
+          <option value="no_se">No sé bien</option>
+          <option value="sedentario">Sedentario</option>
+          <option value="leve">Leve (1-3 veces por semana)</option>
+          <option value="moderado">Moderado (3-5 veces por semana)</option>
+          <option value="intenso">Intenso (6-7 veces por semana)</option>
+        </select>
+        <select id="meals-schedule" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
+          <option value="a">07:00, 10:00, 13:00, 17:00, 21:00</option>
+          <option value="b">08:00, 13:00, 20:00</option>
+          <option value="c">06:00, 09:00, 12:00, 16:00, 19:00</option>
+        </select>
+        <div class="flex gap-3 mt-2">
+          <button id="btn-masc" onclick="setGender('M')"
+            class="gender-btn flex-1 border border-gray-200 rounded-lg py-3 text-sm font-medium text-gray-600">Masculino</button>
+          <button id="btn-fem" onclick="setGender('F')"
+            class="gender-btn active flex-1 border rounded-lg py-3 text-sm font-medium">Femenino</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESAYUNO -->
+    <div id="section-desayuno" class="bg-white rounded-2xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="font-bold text-gray-800 text-base">Desayuno ☕</h2>
+        <div id="count-desayuno" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
+      </div>
+      <p class="text-xs text-gray-500 mb-4">Seleccioná los alimentos.</p>
+      <div id="error-desayuno" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
+        <span id="error-desayuno-msg"></span>
+      </div>
+      <div class="grid grid-cols-3 gap-2" id="foods-desayuno"></div>
+    </div>
+
+    <!-- ALMUERZO -->
+    <div id="section-almuerzo" class="bg-white rounded-2xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="font-bold text-gray-800 text-base">Almuerzo 🍽️</h2>
+        <div id="count-almuerzo" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
+      </div>
+      <p class="text-xs text-gray-500 mb-4">Seleccioná los alimentos.</p>
+      <div id="error-almuerzo" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
+        <span id="error-almuerzo-msg"></span>
+      </div>
+      <div class="grid grid-cols-3 gap-2" id="foods-almuerzo"></div>
+    </div>
+
+    <!-- MERIENDA -->
+    <div id="section-merienda" class="bg-white rounded-2xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="font-bold text-gray-800 text-base">Merienda 🍪</h2>
+        <div id="count-merienda" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
+      </div>
+      <p class="text-xs text-gray-500 mb-4">Seleccioná los alimentos.</p>
+      <div id="error-merienda" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
+        <span id="error-merienda-msg"></span>
+      </div>
+      <div class="grid grid-cols-3 gap-2" id="foods-merienda"></div>
+    </div>
+
+    <!-- CENA -->
+    <div id="section-cena" class="bg-white rounded-2xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="font-bold text-gray-800 text-base">Cena 🌙</h2>
+        <div id="count-cena" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
+      </div>
+      <p class="text-xs text-gray-500 mb-4">Seleccioná los alimentos.</p>
+      <div id="error-cena" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
+        <span id="error-cena-msg"></span>
+      </div>
+      <div class="grid grid-cols-3 gap-2" id="foods-cena"></div>
+    </div>
+
+    <!-- INFORMACIÓN DE RUTINA -->
+    <div class="bg-white rounded-2xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-1">
+        <div class="flex items-center gap-2">
+          <svg class="text-green-600" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <h2 class="font-bold text-gray-800 text-base">Información de Rutina</h2>
+        </div>
+        <div class="flex gap-1">
+          <div class="progress-dot bg-green-500"></div>
+          <div class="progress-dot bg-green-500"></div>
+        </div>
+      </div>
+      <p class="text-xs text-gray-500 mb-5">Contanos sobre tu rutina de ejercicios</p>
+      <div class="space-y-3">
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">¿Cómo es tu rutina?</label>
+          <select id="routine" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
+            <option value="sedentario">Sedentario (sin ejercicio)</option>
+            <option value="leve" selected>Leve (ejercicio leve 1-3 días por semana)</option>
+            <option value="moderado">Moderado (3-5 días por semana)</option>
+            <option value="intenso">Intenso (6-7 días por semana)</option>
+          </select>
+        </div>
+        <select id="training" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
+          <option value="no">No, no quiero entrenar</option>
+          <option value="si">Sí, quiero incluir entrenamientos</option>
+          <option value="ya">Ya entreno, quiero optimizar</option>
+        </select>
+        <select id="chocolate" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
+          <option value="no">No incluir chocolate</option>
+          <option value="si">Sí, ¡me encanta el chocolate!</option>
+          <option value="aveces">A veces</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="bg-white rounded-2xl shadow-sm p-6">
+      <h2 class="font-bold text-gray-800 text-xl mb-1">¡Tu dieta, a tu manera!</h2>
+      <div class="flex items-center gap-2 mb-4">
+        <div class="flex -space-x-2">
+          <div class="w-7 h-7 rounded-full bg-orange-300 border-2 border-white"></div>
+          <div class="w-7 h-7 rounded-full bg-pink-400 border-2 border-white"></div>
+          <div class="w-7 h-7 rounded-full bg-green-400 border-2 border-white"></div>
+          <div class="w-7 h-7 rounded-full bg-blue-400 border-2 border-white"></div>
+        </div>
+        <span class="text-xs text-gray-500">+500 mil personas ya lo usaron</span>
+      </div>
+      <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Resultados reales</p>
+      <div class="flex gap-2 overflow-x-auto pb-2 mb-5">
+        <div class="w-20 h-28 rounded-xl bg-gradient-to-br from-gray-200 to-gray-300 flex-shrink-0"></div>
+        <div class="w-20 h-28 rounded-xl bg-gradient-to-br from-gray-300 to-gray-400 flex-shrink-0"></div>
+        <div class="w-20 h-28 rounded-xl bg-gradient-to-br from-gray-200 to-gray-300 flex-shrink-0"></div>
+        <div class="w-20 h-28 rounded-xl bg-gradient-to-br from-gray-300 to-gray-400 flex-shrink-0"></div>
+        <div class="w-20 h-28 rounded-xl bg-gradient-to-br from-gray-200 to-gray-300 flex-shrink-0"></div>
+      </div>
+      <div class="flex items-start gap-6">
+        <div>
+          <p class="text-xs text-gray-400 uppercase">Desde</p>
+          <p class="text-3xl font-bold text-gray-800">$4.990</p>
+          <p class="text-xs text-gray-400">ARS / mes</p>
+        </div>
+        <div class="space-y-1.5 text-sm text-gray-600">
+          <div class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Plan alimentario completo</div>
+          <div class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Basado en tus preferencias</div>
+          <div class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Modificalo cuando quieras</div>
+        </div>
+      </div>
+      <button onclick="handleCheckout()" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl py-4 mt-5 flex items-center justify-center gap-2 text-sm transition-colors">
+        Armar mi dieta
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <div class="flex items-center justify-center gap-1 mt-2 text-xs text-gray-400">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Pago seguro
+      </div>
+    </div>
+    <div class="text-center text-xs text-gray-400 pb-8 flex items-center justify-center gap-2">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      Ya somos más de 850 mil en Instagram
+    </div>
+  </div>
+
+  <!-- ===================== PANTALLA DE PLAN ===================== -->
+  <div id="plan-screen" class="max-w-xl mx-auto mt-20 space-y-5">
+
+    <!-- Header del plan -->
+    <div class="bg-white rounded-2xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-4">
+        <button onclick="showForm()" class="no-print flex items-center gap-1 text-sm text-gray-500 hover:text-green-600">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Modificar
+        </button>
+        <button onclick="window.print()" class="no-print flex items-center gap-1 text-sm text-green-600 hover:text-green-700 border border-green-200 rounded-lg px-3 py-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir / PDF
+        </button>
+      </div>
+
+      <div class="text-center">
+        <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h1 class="text-xl font-bold text-gray-800 mb-1">Tu Plan Alimentario</h1>
+        <p class="text-sm text-gray-500" id="plan-subtitle"></p>
+      </div>
+
+      <!-- Resumen de calorías -->
+      <div class="grid grid-cols-3 gap-3 mt-5">
+        <div class="bg-green-50 rounded-xl p-3 text-center">
+          <p class="text-2xl font-bold text-green-700" id="plan-calorias">—</p>
+          <p class="text-xs text-gray-500 mt-0.5">kcal / día</p>
+        </div>
+        <div class="bg-blue-50 rounded-xl p-3 text-center">
+          <p class="text-2xl font-bold text-blue-700" id="plan-proteinas">—</p>
+          <p class="text-xs text-gray-500 mt-0.5">g proteínas</p>
+        </div>
+        <div class="bg-orange-50 rounded-xl p-3 text-center">
+          <p class="text-2xl font-bold text-orange-600" id="plan-carbos">—</p>
+          <p class="text-xs text-gray-500 mt-0.5">g carbos</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjetas de comidas -->
+    <div id="plan-meals" class="space-y-4"></div>
+
+    <!-- Consejos -->
+    <div id="plan-tips" class="bg-white rounded-2xl shadow-sm p-6">
+      <h3 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+        <span>💡</span> Consejos para tu objetivo
+      </h3>
+      <ul id="tips-list" class="space-y-2 text-sm text-gray-600"></ul>
+    </div>
+
+    <!-- Botón volver -->
+    <div class="no-print pb-8 text-center">
+      <button onclick="showForm()" class="text-sm text-gray-400 hover:text-green-600 underline">
+        ← Volver y editar mi plan
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const MIN = 3;
+    let gender = 'F';
+
+    const schedules = {
+      a: { desayuno: '07:00', merienda: '10:00', almuerzo: '13:00', merienda2: '17:00', cena: '21:00' },
+      b: { desayuno: '08:00', almuerzo: '13:00', cena: '20:00' },
+      c: { desayuno: '06:00', merienda: '09:00', almuerzo: '12:00', merienda2: '16:00', cena: '19:00' },
+    };
+
+    const mealTimes = {
+      a: { desayuno: '07:00', almuerzo: '13:00', merienda: '17:00', cena: '21:00' },
+      b: { desayuno: '08:00', almuerzo: '13:00', merienda: '16:00', cena: '20:00' },
+      c: { desayuno: '06:00', almuerzo: '12:00', merienda: '16:00', cena: '19:00' },
+    };
+
+    const foodData = {
+      desayuno: [
+        { id: 'd1', label: 'Tostadas con manteca', emoji: '🍞', kcal: 180, prot: 5, carb: 28 },
+        { id: 'd2', label: 'Tostadas con queso', emoji: '🧀', kcal: 210, prot: 10, carb: 24 },
+        { id: 'd3', label: 'Tostadas con jamón y queso', emoji: '🥪', kcal: 240, prot: 14, carb: 24 },
+        { id: 'd4', label: 'Medialunas', emoji: '🥐', kcal: 250, prot: 6, carb: 34 },
+        { id: 'd5', label: 'Yogur con granola', emoji: '🥣', kcal: 220, prot: 8, carb: 38 },
+        { id: 'd6', label: 'Huevos revueltos', emoji: '🍳', kcal: 190, prot: 14, carb: 2 },
+        { id: 'd7', label: 'Huevos fritos', emoji: '🍳', kcal: 200, prot: 13, carb: 1 },
+        { id: 'd8', label: 'Avena con leche', emoji: '🥛', kcal: 230, prot: 9, carb: 38 },
+        { id: 'd9', label: 'Licuado de frutas', emoji: '🥤', kcal: 160, prot: 4, carb: 35 },
+        { id: 'd10', label: 'Fruta fresca', emoji: '🍎', kcal: 80, prot: 1, carb: 20 },
+        { id: 'd11', label: 'Banana', emoji: '🍌', kcal: 90, prot: 1, carb: 23 },
+        { id: 'd12', label: 'Café con leche', emoji: '☕', kcal: 60, prot: 3, carb: 6 },
+        { id: 'd13', label: 'Mate con tortitas', emoji: '🧉', kcal: 120, prot: 2, carb: 22 },
+        { id: 'd14', label: 'Yogur descremado', emoji: '🥛', kcal: 100, prot: 10, carb: 12 },
+        { id: 'd15', label: 'Queso fresco', emoji: '🧀', kcal: 130, prot: 12, carb: 2 },
+      ],
+      almuerzo: [
+        { id: 'a1', label: 'Arroz blanco', emoji: '🍚', kcal: 200, prot: 4, carb: 44 },
+        { id: 'a2', label: 'Arroz integral', emoji: '🍚', kcal: 210, prot: 5, carb: 44 },
+        { id: 'a3', label: 'Fideos', emoji: '🍝', kcal: 220, prot: 7, carb: 43 },
+        { id: 'a4', label: 'Papa hervida', emoji: '🥔', kcal: 130, prot: 3, carb: 30 },
+        { id: 'a5', label: 'Batata', emoji: '🍠', kcal: 120, prot: 2, carb: 28 },
+        { id: 'a6', label: 'Lentejas', emoji: '🫘', kcal: 180, prot: 13, carb: 30 },
+        { id: 'a7', label: 'Pollo a la plancha', emoji: '🍗', kcal: 165, prot: 31, carb: 0 },
+        { id: 'a8', label: 'Milanesa al horno', emoji: '🥩', kcal: 280, prot: 28, carb: 14 },
+        { id: 'a9', label: 'Carne a la plancha', emoji: '🥩', kcal: 220, prot: 26, carb: 0 },
+        { id: 'a10', label: 'Pescado al horno', emoji: '🐟', kcal: 150, prot: 28, carb: 0 },
+        { id: 'a11', label: 'Huevo duro', emoji: '🥚', kcal: 75, prot: 6, carb: 1 },
+        { id: 'a12', label: 'Ensalada mixta', emoji: '🥗', kcal: 60, prot: 2, carb: 8 },
+        { id: 'a13', label: 'Ensalada de tomate', emoji: '🍅', kcal: 40, prot: 1, carb: 7 },
+        { id: 'a14', label: 'Verduras salteadas', emoji: '🥦', kcal: 80, prot: 3, carb: 10 },
+        { id: 'a15', label: 'Zapallo al horno', emoji: '🎃', kcal: 50, prot: 1, carb: 12 },
+        { id: 'a16', label: 'Choclo', emoji: '🌽', kcal: 130, prot: 3, carb: 27 },
+        { id: 'a17', label: 'Legumbres', emoji: '🫘', kcal: 170, prot: 10, carb: 30 },
+        { id: 'a18', label: 'Locro', emoji: '🍲', kcal: 320, prot: 18, carb: 40 },
+      ],
+      merienda: [
+        { id: 'm1', label: 'Tostadas con queso', emoji: '🧀', kcal: 180, prot: 8, carb: 22 },
+        { id: 'm2', label: 'Medialunas', emoji: '🥐', kcal: 200, prot: 5, carb: 28 },
+        { id: 'm3', label: 'Fruta fresca', emoji: '🍎', kcal: 80, prot: 1, carb: 20 },
+        { id: 'm4', label: 'Banana', emoji: '🍌', kcal: 90, prot: 1, carb: 23 },
+        { id: 'm5', label: 'Yogur', emoji: '🥛', kcal: 120, prot: 8, carb: 16 },
+        { id: 'm6', label: 'Barrita de cereal', emoji: '🌾', kcal: 130, prot: 3, carb: 26 },
+        { id: 'm7', label: 'Mate con galletas', emoji: '🧉', kcal: 110, prot: 2, carb: 20 },
+        { id: 'm8', label: 'Café con leche', emoji: '☕', kcal: 60, prot: 3, carb: 6 },
+        { id: 'm9', label: 'Licuado de frutas', emoji: '🥤', kcal: 150, prot: 4, carb: 32 },
+        { id: 'm10', label: 'Arroz con leche', emoji: '🍚', kcal: 190, prot: 5, carb: 36 },
+        { id: 'm11', label: 'Tostadas con palta', emoji: '🥑', kcal: 200, prot: 4, carb: 22 },
+        { id: 'm12', label: 'Huevo duro', emoji: '🥚', kcal: 75, prot: 6, carb: 1 },
+        { id: 'm13', label: 'Nueces y almendras', emoji: '🥜', kcal: 170, prot: 5, carb: 6 },
+        { id: 'm14', label: 'Queso y jamón', emoji: '🧀', kcal: 150, prot: 12, carb: 2 },
+        { id: 'm15', label: 'Té con tostadas', emoji: '🍵', kcal: 140, prot: 3, carb: 24 },
+      ],
+      cena: [
+        { id: 'c1', label: 'Arroz blanco', emoji: '🍚', kcal: 200, prot: 4, carb: 44 },
+        { id: 'c2', label: 'Fideos', emoji: '🍝', kcal: 220, prot: 7, carb: 43 },
+        { id: 'c3', label: 'Papa hervida', emoji: '🥔', kcal: 130, prot: 3, carb: 30 },
+        { id: 'c4', label: 'Batata', emoji: '🍠', kcal: 120, prot: 2, carb: 28 },
+        { id: 'c5', label: 'Pollo a la plancha', emoji: '🍗', kcal: 165, prot: 31, carb: 0 },
+        { id: 'c6', label: 'Milanesa al horno', emoji: '🥩', kcal: 280, prot: 28, carb: 14 },
+        { id: 'c7', label: 'Carne a la plancha', emoji: '🥩', kcal: 220, prot: 26, carb: 0 },
+        { id: 'c8', label: 'Pescado al horno', emoji: '🐟', kcal: 150, prot: 28, carb: 0 },
+        { id: 'c9', label: 'Huevo duro', emoji: '🥚', kcal: 75, prot: 6, carb: 1 },
+        { id: 'c10', label: 'Omelette', emoji: '🍳', kcal: 180, prot: 13, carb: 2 },
+        { id: 'c11', label: 'Ensalada mixta', emoji: '🥗', kcal: 60, prot: 2, carb: 8 },
+        { id: 'c12', label: 'Ensalada de tomate', emoji: '🍅', kcal: 40, prot: 1, carb: 7 },
+        { id: 'c13', label: 'Verduras salteadas', emoji: '🥦', kcal: 80, prot: 3, carb: 10 },
+        { id: 'c14', label: 'Sopa de verduras', emoji: '🍲', kcal: 90, prot: 3, carb: 14 },
+        { id: 'c15', label: 'Zapallo al horno', emoji: '🎃', kcal: 50, prot: 1, carb: 12 },
+        { id: 'c16', label: 'Tarta de verduras', emoji: '🥧', kcal: 270, prot: 9, carb: 30 },
+        { id: 'c17', label: 'Pizzeta integral', emoji: '🍕', kcal: 260, prot: 11, carb: 34 },
+        { id: 'c18', label: 'Revuelto gramajo', emoji: '🍳', kcal: 310, prot: 18, carb: 22 },
+      ],
+    };
+
+    const selections = { desayuno: new Set(), almuerzo: new Set(), merienda: new Set(), cena: new Set() };
+
+    function renderFoods(meal) {
+      const container = document.getElementById(`foods-${meal}`);
+      container.innerHTML = '';
+      foodData[meal].forEach(food => {
+        const btn = document.createElement('button');
+        btn.className = 'food-btn border border-gray-200 rounded-xl px-2 py-2.5 text-xs text-gray-700 flex items-center gap-1.5 text-left';
+        btn.dataset.id = food.id;
+        btn.innerHTML = `<span class="text-base leading-none">${food.emoji}</span><span class="leading-tight">${food.label}</span>`;
+        btn.onclick = () => toggleFood(meal, food.id, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function toggleFood(meal, id, btn) {
+      if (selections[meal].has(id)) {
+        selections[meal].delete(id);
+        btn.classList.remove('selected');
+      } else {
+        selections[meal].add(id);
+        btn.classList.add('selected');
+      }
+      updateCount(meal);
+    }
+
+    function updateCount(meal) {
+      const count = selections[meal].size;
+      const countEl = document.getElementById(`count-${meal}`);
+      const errorEl = document.getElementById(`error-${meal}`);
+      const msgEl = document.getElementById(`error-${meal}-msg`);
+      const ok = count >= MIN;
+
+      countEl.innerHTML = ok
+        ? `<span class="text-green-600 font-semibold">${count}/${MIN}</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`
+        : `<span class="text-gray-500">${count}/${MIN}</span>`;
+
+      if (count > 0 && !ok) {
+        const faltan = MIN - count;
+        msgEl.textContent = `Seleccioná al menos ${MIN} alimentos para continuar. Seleccionaste ${count}, falta${faltan > 1 ? 'n' : ''} ${faltan}.`;
+        errorEl.classList.remove('hidden');
+      } else {
+        errorEl.classList.add('hidden');
+      }
+    }
+
+    function setGender(g) {
+      gender = g;
+      document.getElementById('btn-masc').classList.toggle('active', g === 'M');
+      document.getElementById('btn-fem').classList.toggle('active', g === 'F');
+    }
+
+    function getSelectedFoods(meal) {
+      return foodData[meal].filter(f => selections[meal].has(f.id));
+    }
+
+    function calcTMB(weight, height, age, gender) {
+      if (gender === 'M') return 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age);
+      return 447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
+    }
+
+    function activityFactor(routine) {
+      return { sedentario: 1.2, leve: 1.375, moderado: 1.55, intenso: 1.725 }[routine] || 1.375;
+    }
+
+    function goalAdjust(goal, tdee) {
+      if (goal === 'adelgazar') return Math.round(tdee * 0.85);
+      if (goal === 'masa') return Math.round(tdee * 1.1);
+      return Math.round(tdee);
+    }
+
+    function buildPlan() {
+      const weight = parseFloat(document.getElementById('weight').value) || 70;
+      const height = parseFloat(document.getElementById('height').value) || 165;
+      const age = parseFloat(document.getElementById('age').value) || 30;
+      const goal = document.getElementById('goal').value || 'mantenimiento';
+      const routine = document.getElementById('routine').value;
+      const schedule = document.getElementById('meals-schedule').value || 'a';
+      const chocolate = document.getElementById('chocolate').value;
+
+      const tmb = calcTMB(weight, height, age, gender);
+      const tdee = tmb * activityFactor(routine);
+      const targetCal = goalAdjust(goal, tdee);
+      const proteinas = Math.round(weight * 1.6);
+      const carbos = Math.round((targetCal * 0.45) / 4);
+
+      // subtítulo
+      const goalLabels = { adelgazar: 'Pérdida de peso', masa: 'Ganancia muscular', mantenimiento: 'Mantenimiento', salud: 'Salud y bienestar' };
+      document.getElementById('plan-subtitle').textContent =
+        `${goalLabels[goal] || 'Personalizado'} • ${weight}kg • ${height}cm • ${age} años`;
+      document.getElementById('plan-calorias').textContent = targetCal;
+      document.getElementById('plan-proteinas').textContent = proteinas;
+      document.getElementById('plan-carbos').textContent = carbos;
+
+      // tiempos
+      const times = mealTimes[schedule] || mealTimes.a;
+
+      // armar tarjetas de comida
+      const mealDefs = [
+        { key: 'desayuno', label: 'Desayuno', emoji: '☕', time: times.desayuno },
+        { key: 'almuerzo', label: 'Almuerzo', emoji: '🍽️', time: times.almuerzo },
+        { key: 'merienda', label: 'Merienda', emoji: '🍪', time: times.merienda },
+        { key: 'cena', label: 'Cena', emoji: '🌙', time: times.cena },
+      ];
+
+      const container = document.getElementById('plan-meals');
+      container.innerHTML = '';
+
+      let totalKcal = 0, totalProt = 0, totalCarb = 0;
+
+      mealDefs.forEach(m => {
+        const foods = getSelectedFoods(m.key);
+        const mKcal = foods.reduce((s, f) => s + f.kcal, 0);
+        const mProt = foods.reduce((s, f) => s + f.prot, 0);
+        const mCarb = foods.reduce((s, f) => s + f.carb, 0);
+        totalKcal += mKcal; totalProt += mProt; totalCarb += mCarb;
+
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-2xl shadow-sm p-5 meal-card';
+        card.innerHTML = `
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <span class="text-base font-bold text-gray-800">${m.emoji} ${m.label}</span>
+              <span class="ml-2 text-xs text-gray-400 bg-gray-100 rounded-full px-2 py-0.5">${m.time}</span>
+            </div>
+            <span class="text-xs font-semibold text-green-700 bg-green-50 rounded-full px-2 py-1">${mKcal} kcal</span>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-3">
+            ${foods.map(f => `
+              <span class="flex items-center gap-1 bg-gray-50 border border-gray-100 rounded-lg px-2 py-1.5 text-xs text-gray-700">
+                ${f.emoji} ${f.label}
+              </span>`).join('')}
+          </div>
+          <div class="flex gap-4 text-xs text-gray-400 border-t border-gray-50 pt-2">
+            <span>🥩 Prot: <strong class="text-gray-600">${mProt}g</strong></span>
+            <span>🌾 Carbos: <strong class="text-gray-600">${mCarb}g</strong></span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      // chocolate extra
+      if (chocolate === 'si') {
+        const extra = document.createElement('div');
+        extra.className = 'bg-amber-50 rounded-2xl shadow-sm p-5 border border-amber-100';
+        extra.innerHTML = `
+          <p class="text-sm font-bold text-amber-800 mb-1">🍫 Snack de chocolate permitido</p>
+          <p class="text-xs text-amber-700">Podés incluir 20g de chocolate amargo (70%+) como colación. Aporta aprox. 120 kcal y antioxidantes.</p>
+        `;
+        container.appendChild(extra);
+      }
+
+      // consejos
+      const tips = {
+        adelgazar: [
+          '💧 Tomá al menos 2 litros de agua por día.',
+          '🕐 Respetá los horarios de las comidas para controlar el hambre.',
+          '🚶 Sumar 30 min de caminata diaria acelera los resultados.',
+          '🍽️ Comé despacio y sin distracciones para sentirte más saciado/a.',
+        ],
+        masa: [
+          '🥩 Priorizá las proteínas en cada comida principal.',
+          '💪 Consumí carbohidratos antes y después de entrenar.',
+          '😴 Dormí al menos 7-8 horas: es cuando más crece el músculo.',
+          '📆 La constancia es clave: no salteés comidas.',
+        ],
+        mantenimiento: [
+          '⚖️ Mantené los horarios regulares de comidas.',
+          '🥗 Incluí variedad de vegetales en almuerzo y cena.',
+          '💧 Hidratarse bien mejora la energía y el metabolismo.',
+          '🏃 Mantené actividad física al menos 3 veces por semana.',
+        ],
+        salud: [
+          '🌈 Comé alimentos de todos los colores cada día.',
+          '🫀 Reducí el sodio y el azúcar procesada.',
+          '💧 El agua es tu mejor aliada.',
+          '🧘 El bienestar incluye descanso y manejo del estrés.',
+        ],
+      };
+
+      const tipsList = document.getElementById('tips-list');
+      tipsList.innerHTML = (tips[goal] || tips.mantenimiento)
+        .map(t => `<li class="flex items-start gap-2"><span>${t}</span></li>`).join('');
+    }
+
+    function handleCheckout() {
+      const meals = ['desayuno', 'almuerzo', 'merienda', 'cena'];
+      let firstInvalid = null;
+      meals.forEach(m => {
+        if (selections[m].size < MIN) {
+          updateCount(m);
+          if (!firstInvalid) firstInvalid = m;
+        }
+      });
+      if (firstInvalid) {
+        document.getElementById(`section-${firstInvalid}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      buildPlan();
+      showPlan();
+    }
+
+    function showPlan() {
+      document.getElementById('form-screen').style.display = 'none';
+      document.getElementById('plan-screen').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showForm() {
+      document.getElementById('form-screen').style.display = 'block';
+      document.getElementById('plan-screen').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showPlanIfReady() {
+      const allReady = ['desayuno', 'almuerzo', 'merienda', 'cena'].every(m => selections[m].size >= MIN);
+      if (allReady) { buildPlan(); showPlan(); }
+    }
+
+    ['desayuno', 'almuerzo', 'merienda', 'cena'].forEach(renderFoods);
+  </script>
+</body>
+</html>
