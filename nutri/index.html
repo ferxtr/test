@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="es-AR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,11 +26,11 @@
         nutri<span class="text-gray-800">inteligente</span>
       </div>
       <div class="flex items-center gap-6 text-sm font-medium text-gray-600">
-        <a href="#" class="text-green-600 border-b-2 border-green-500 pb-0.5">Home</a>
-        <a href="#" class="hover:text-green-600">Dietas</a>
+        <a href="#" class="text-green-600 border-b-2 border-green-500 pb-0.5">Inicio</a>
+        <a href="#" class="hover:text-green-600">Mis Dietas</a>
         <a href="#" class="hover:text-green-600">Perfil</a>
         <button class="flex items-center gap-1 border border-gray-300 rounded-full px-4 py-1.5 hover:bg-gray-50">
-          Sair
+          Salir
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         </button>
       </div>
@@ -39,50 +39,50 @@
 
   <div class="max-w-xl mx-auto mt-20 space-y-5">
 
-    <!-- MEDIDAS CORPORAIS -->
+    <!-- MEDIDAS CORPORALES -->
     <div class="bg-white rounded-2xl shadow-sm p-6">
       <div class="flex items-center justify-between mb-1">
         <div class="flex items-center gap-2">
           <svg class="text-green-600" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          <h2 class="font-bold text-gray-800 text-base">Medidas Corporais</h2>
+          <h2 class="font-bold text-gray-800 text-base">Medidas Corporales</h2>
         </div>
         <div class="flex gap-1">
           <div class="progress-dot bg-green-500"></div>
           <div class="progress-dot bg-gray-200"></div>
         </div>
       </div>
-      <p class="text-xs text-gray-500 mb-5">Preencha para calcular sua dieta personalizada</p>
+      <p class="text-xs text-gray-500 mb-5">Completá tus datos para calcular tu dieta personalizada</p>
 
       <div class="space-y-3">
-        <input id="weight" type="number" placeholder="Peso (kg)" value=""
+        <input id="weight" type="number" placeholder="Peso (kg)"
           class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 focus:border-green-500" />
-        <input id="height" type="number" placeholder="Altura (cm)" value=""
+        <input id="height" type="number" placeholder="Altura (cm)"
           class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 focus:border-green-500" />
-        <input id="age" type="number" placeholder="Idade"
+        <input id="age" type="number" placeholder="Edad"
           class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 focus:border-green-500" />
 
-        <select id="goal" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white">
+        <select id="goal" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
           <option value="">Objetivo</option>
-          <option value="emagrecimento" selected>Emagrecimento</option>
-          <option value="ganho">Ganho de Massa</option>
-          <option value="manutencao">Manutenção</option>
-          <option value="saude">Saúde e Bem-estar</option>
+          <option value="adelgazar">Adelgazar</option>
+          <option value="masa">Ganar masa muscular</option>
+          <option value="mantenimiento">Mantenimiento</option>
+          <option value="salud">Salud y bienestar</option>
         </select>
 
         <select id="activity" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
-          <option value="">Nível de atividade</option>
-          <option value="nao_sei">Não sei dizer</option>
-          <option value="sedentario">Sedentário</option>
-          <option value="leve">Leve (1-3x por semana)</option>
-          <option value="moderado">Moderado (3-5x por semana)</option>
-          <option value="intenso">Intenso (6-7x por semana)</option>
+          <option value="">Nivel de actividad</option>
+          <option value="no_se">No sé bien</option>
+          <option value="sedentario">Sedentario</option>
+          <option value="leve">Leve (1-3 veces por semana)</option>
+          <option value="moderado">Moderado (3-5 veces por semana)</option>
+          <option value="intenso">Intenso (6-7 veces por semana)</option>
         </select>
 
         <select id="meals" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
-          <option value="">Horários das refeições</option>
-          <option value="3" selected>05:30, 08:30, 12:00, 15:00, 19:00</option>
-          <option value="3">06:00, 12:00, 19:00</option>
-          <option value="4">07:00, 10:00, 13:00, 16:00, 20:00</option>
+          <option value="">Horarios de comidas</option>
+          <option value="a">07:00, 10:00, 13:00, 17:00, 21:00</option>
+          <option value="b">08:00, 13:00, 20:00</option>
+          <option value="c">06:00, 09:00, 12:00, 16:00, 19:00</option>
         </select>
 
         <div class="flex gap-3 mt-2">
@@ -92,111 +92,111 @@
           </button>
           <button id="btn-fem" onclick="setGender('F')"
             class="gender-btn active flex-1 border rounded-lg py-3 text-sm font-medium">
-            Feminino
+            Femenino
           </button>
         </div>
       </div>
     </div>
 
-    <!-- CAFÉ DA MANHÃ -->
-    <div id="section-cafe" class="bg-white rounded-2xl shadow-sm p-6">
+    <!-- DESAYUNO -->
+    <div id="section-desayuno" class="bg-white rounded-2xl shadow-sm p-6">
       <div class="flex items-center justify-between mb-1">
-        <h2 class="font-bold text-gray-800 text-base">Café da Manhã ☕</h2>
-        <div id="count-cafe" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
+        <h2 class="font-bold text-gray-800 text-base">Desayuno ☕</h2>
+        <div id="count-desayuno" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
       </div>
-      <p class="text-xs text-gray-500 mb-4">Selecione os alimentos.</p>
-      <div id="error-cafe" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
+      <p class="text-xs text-gray-500 mb-4">Seleccioná los alimentos.</p>
+      <div id="error-desayuno" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
-        <span id="error-cafe-msg"></span>
+        <span id="error-desayuno-msg"></span>
       </div>
-      <div class="grid grid-cols-3 gap-2" id="foods-cafe"></div>
+      <div class="grid grid-cols-3 gap-2" id="foods-desayuno"></div>
     </div>
 
-    <!-- ALMOÇO -->
-    <div id="section-almoco" class="bg-white rounded-2xl shadow-sm p-6">
+    <!-- ALMUERZO -->
+    <div id="section-almuerzo" class="bg-white rounded-2xl shadow-sm p-6">
       <div class="flex items-center justify-between mb-1">
-        <h2 class="font-bold text-gray-800 text-base">Almoço 🍽️</h2>
-        <div id="count-almoco" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
+        <h2 class="font-bold text-gray-800 text-base">Almuerzo 🍽️</h2>
+        <div id="count-almuerzo" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
       </div>
-      <p class="text-xs text-gray-500 mb-4">Selecione os alimentos.</p>
-      <div id="error-almoco" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
+      <p class="text-xs text-gray-500 mb-4">Seleccioná los alimentos.</p>
+      <div id="error-almuerzo" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
-        <span id="error-almoco-msg"></span>
+        <span id="error-almuerzo-msg"></span>
       </div>
-      <div class="grid grid-cols-3 gap-2" id="foods-almoco"></div>
+      <div class="grid grid-cols-3 gap-2" id="foods-almuerzo"></div>
     </div>
 
-    <!-- LANCHE DA TARDE -->
-    <div id="section-lanche" class="bg-white rounded-2xl shadow-sm p-6">
+    <!-- MERIENDA -->
+    <div id="section-merienda" class="bg-white rounded-2xl shadow-sm p-6">
       <div class="flex items-center justify-between mb-1">
-        <h2 class="font-bold text-gray-800 text-base">Lanche da Tarde 🐿️</h2>
-        <div id="count-lanche" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
+        <h2 class="font-bold text-gray-800 text-base">Merienda 🍪</h2>
+        <div id="count-merienda" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
       </div>
-      <p class="text-xs text-gray-500 mb-4">Selecione os alimentos.</p>
-      <div id="error-lanche" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
+      <p class="text-xs text-gray-500 mb-4">Seleccioná los alimentos.</p>
+      <div id="error-merienda" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
-        <span id="error-lanche-msg"></span>
+        <span id="error-merienda-msg"></span>
       </div>
-      <div class="grid grid-cols-3 gap-2" id="foods-lanche"></div>
+      <div class="grid grid-cols-3 gap-2" id="foods-merienda"></div>
     </div>
 
-    <!-- JANTA -->
-    <div id="section-janta" class="bg-white rounded-2xl shadow-sm p-6">
+    <!-- CENA -->
+    <div id="section-cena" class="bg-white rounded-2xl shadow-sm p-6">
       <div class="flex items-center justify-between mb-1">
-        <h2 class="font-bold text-gray-800 text-base">Janta 🌙</h2>
-        <div id="count-janta" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
+        <h2 class="font-bold text-gray-800 text-base">Cena 🌙</h2>
+        <div id="count-cena" class="text-sm text-gray-500 flex items-center gap-1">0/3</div>
       </div>
-      <p class="text-xs text-gray-500 mb-4">Selecione os alimentos.</p>
-      <div id="error-janta" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
+      <p class="text-xs text-gray-500 mb-4">Seleccioná los alimentos.</p>
+      <div id="error-cena" class="hidden bg-red-50 border border-red-100 rounded-lg p-3 mb-4 text-xs text-red-600 flex items-start gap-2">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
-        <span id="error-janta-msg"></span>
+        <span id="error-cena-msg"></span>
       </div>
-      <div class="grid grid-cols-3 gap-2" id="foods-janta"></div>
+      <div class="grid grid-cols-3 gap-2" id="foods-cena"></div>
     </div>
 
-    <!-- INFORMAÇÕES DE ROTINA -->
+    <!-- INFORMACIÓN DE RUTINA -->
     <div class="bg-white rounded-2xl shadow-sm p-6">
       <div class="flex items-center justify-between mb-1">
         <div class="flex items-center gap-2">
           <svg class="text-green-600" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <h2 class="font-bold text-gray-800 text-base">Informações de Rotina</h2>
+          <h2 class="font-bold text-gray-800 text-base">Información de Rutina</h2>
         </div>
         <div class="flex gap-1">
           <div class="progress-dot bg-green-500"></div>
           <div class="progress-dot bg-green-500"></div>
         </div>
       </div>
-      <p class="text-xs text-gray-500 mb-5">Detalhes sobre sua rotina de exercícios</p>
+      <p class="text-xs text-gray-500 mb-5">Contanos sobre tu rutina de ejercicios</p>
 
       <div class="space-y-3">
         <div>
-          <label class="text-xs text-gray-500 mb-1 block">Como é sua rotina?</label>
+          <label class="text-xs text-gray-500 mb-1 block">¿Cómo es tu rutina?</label>
           <select class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
-            <option>Sedentário (sem exercícios)</option>
-            <option selected>Leve (exercícios leves 1-3 dias por semana)</option>
-            <option>Moderado (3-5 dias por semana)</option>
-            <option>Intenso (6-7 dias por semana)</option>
+            <option>Sedentario (sin ejercicio)</option>
+            <option selected>Leve (ejercicio leve 1-3 días por semana)</option>
+            <option>Moderado (3-5 días por semana)</option>
+            <option>Intenso (6-7 días por semana)</option>
           </select>
         </div>
 
         <select class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
-          <option>Não, não quero treinar</option>
-          <option>Sim, quero incluir treinos</option>
-          <option>Já treino, quero otimizar</option>
+          <option>No, no quiero entrenar</option>
+          <option>Sí, quiero incluir entrenamientos</option>
+          <option>Ya entreno, quiero optimizar</option>
         </select>
 
         <select class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 bg-white focus:border-green-500">
-          <option>Quer chocolate?</option>
-          <option>Sim, adoro chocolate!</option>
-          <option>Às vezes</option>
-          <option>Não gosto de chocolate</option>
+          <option>¿Querés incluir chocolate?</option>
+          <option>Sí, ¡me encanta el chocolate!</option>
+          <option>A veces</option>
+          <option>No me gusta el chocolate</option>
         </select>
       </div>
     </div>
 
-    <!-- CTA / VENDA -->
+    <!-- CTA / VENTA -->
     <div class="bg-white rounded-2xl shadow-sm p-6">
-      <h2 class="font-bold text-gray-800 text-xl mb-1">Sua dieta, do seu jeito!</h2>
+      <h2 class="font-bold text-gray-800 text-xl mb-1">¡Tu dieta, a tu manera!</h2>
       <div class="flex items-center gap-2 mb-4">
         <div class="flex -space-x-2">
           <div class="w-7 h-7 rounded-full bg-orange-300 border-2 border-white"></div>
@@ -204,10 +204,10 @@
           <div class="w-7 h-7 rounded-full bg-green-400 border-2 border-white"></div>
           <div class="w-7 h-7 rounded-full bg-blue-400 border-2 border-white"></div>
         </div>
-        <span class="text-xs text-gray-500">+500 mil pessoas já usaram</span>
+        <span class="text-xs text-gray-500">+500 mil personas ya lo usaron</span>
       </div>
 
-      <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Resultados reais</p>
+      <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Resultados reales</p>
       <div class="flex gap-2 overflow-x-auto pb-2 mb-5">
         <div class="w-20 h-28 rounded-xl bg-gradient-to-br from-gray-200 to-gray-300 flex-shrink-0"></div>
         <div class="w-20 h-28 rounded-xl bg-gradient-to-br from-gray-300 to-gray-400 flex-shrink-0"></div>
@@ -218,30 +218,31 @@
 
       <div class="flex items-start gap-6">
         <div>
-          <p class="text-xs text-gray-400 uppercase">A partir de</p>
-          <p class="text-3xl font-bold text-gray-800">R$ 9,99</p>
+          <p class="text-xs text-gray-400 uppercase">Desde</p>
+          <p class="text-3xl font-bold text-gray-800">$4.990</p>
+          <p class="text-xs text-gray-400">ARS / mes</p>
         </div>
         <div class="space-y-1.5 text-sm text-gray-600">
-          <div class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Plano alimentar completo</div>
-          <div class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Baseado nas suas preferências</div>
-          <div class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Modifique quando quiser</div>
+          <div class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Plan alimentario completo</div>
+          <div class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Basado en tus preferencias</div>
+          <div class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Modificalo cuando quieras</div>
         </div>
       </div>
 
       <button onclick="handleCheckout()" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl py-4 mt-5 flex items-center justify-center gap-2 text-sm transition-colors">
-        Montar minha dieta
+        Armar mi dieta
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
       <div class="flex items-center justify-center gap-1 mt-2 text-xs text-gray-400">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Pagamento seguro
+        Pago seguro
       </div>
     </div>
 
     <!-- FOOTER -->
     <div class="text-center text-xs text-gray-400 pb-8 flex items-center justify-center gap-2">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      Já somos mais de 850 mil no Instagram
+      Ya somos más de 850 mil en Instagram
     </div>
 
   </div>
@@ -250,83 +251,83 @@
     const MIN_SELECTIONS = 3;
 
     const foodData = {
-      cafe: [
-        { id: 'pao_frango', label: 'Pão + Frango', emoji: '🥖' },
-        { id: 'pao_ovo', label: 'Pão + Ovo', emoji: '🍳' },
-        { id: 'pao_queijo', label: 'Pão + Queijo', emoji: '🧀' },
-        { id: 'pao_presunto', label: 'Pão + Presunto e Queijo', emoji: '🥪' },
-        { id: 'tapioca_queijo', label: 'Tapioca de Queijo', emoji: '🫓' },
-        { id: 'tapioca_frango', label: 'Tapioca de Frango', emoji: '🫓' },
-        { id: 'cuscuz_ovo', label: 'Cuscuz + Ovo', emoji: '🌽' },
-        { id: 'pao_queijo2', label: 'Pão de Queijo', emoji: '🧀' },
-        { id: 'omelete', label: 'Omelete', emoji: '🍳' },
-        { id: 'maca', label: 'Maçã', emoji: '🍎' },
-        { id: 'banana', label: 'Banana', emoji: '🍌' },
-        { id: 'mamao', label: 'Mamão', emoji: '🍊' },
-        { id: 'cafe_leite', label: 'Café + Leite Desnatado', emoji: '☕' },
-        { id: 'cafe', label: 'Café', emoji: '☕' },
-        { id: 'iogurte', label: 'Iogurte', emoji: '🥛' },
+      desayuno: [
+        { id: 'd1', label: 'Tostadas con manteca', emoji: '🍞' },
+        { id: 'd2', label: 'Tostadas con queso', emoji: '🧀' },
+        { id: 'd3', label: 'Tostadas con jamón y queso', emoji: '🥪' },
+        { id: 'd4', label: 'Medialunas', emoji: '🥐' },
+        { id: 'd5', label: 'Yogur con granola', emoji: '🥣' },
+        { id: 'd6', label: 'Huevos revueltos', emoji: '🍳' },
+        { id: 'd7', label: 'Huevos fritos', emoji: '🍳' },
+        { id: 'd8', label: 'Avena con leche', emoji: '🥛' },
+        { id: 'd9', label: 'Licuado de frutas', emoji: '🥤' },
+        { id: 'd10', label: 'Fruta fresca', emoji: '🍎' },
+        { id: 'd11', label: 'Banana', emoji: '🍌' },
+        { id: 'd12', label: 'Café con leche', emoji: '☕' },
+        { id: 'd13', label: 'Mate con tortitas', emoji: '🧉' },
+        { id: 'd14', label: 'Yogur descremado', emoji: '🥛' },
+        { id: 'd15', label: 'Queso fresco', emoji: '🧀' },
       ],
-      almoco: [
-        { id: 'arroz', label: 'Arroz', emoji: '🍚' },
-        { id: 'feijao', label: 'Feijão Preto', emoji: '🫘' },
-        { id: 'cuscuz', label: 'Cuscuz', emoji: '🌽' },
-        { id: 'macarrao', label: 'Macarrão', emoji: '🍝' },
-        { id: 'batata_doce', label: 'Batata Doce', emoji: '🍠' },
-        { id: 'mandioca', label: 'Mandioca', emoji: '🥔' },
-        { id: 'inhame', label: 'Inhame', emoji: '🥔' },
-        { id: 'batata_inglesa', label: 'Batata Inglesa', emoji: '🥔' },
-        { id: 'abobora', label: 'Abóbora', emoji: '🎃' },
-        { id: 'frango', label: 'Frango Grelhado', emoji: '🍗' },
-        { id: 'carne_assada', label: 'Carne Assada', emoji: '🥩' },
-        { id: 'carne_grelhada', label: 'Carne Grelhada', emoji: '🥩' },
-        { id: 'lombo', label: 'Carne de Porco Lombo', emoji: '🥩' },
-        { id: 'patinho', label: 'Patinho Moído', emoji: '🥩' },
-        { id: 'peixe', label: 'Peixe', emoji: '🐟' },
-        { id: 'salada_alface_tomate', label: 'Salada de Alface e Tomate', emoji: '🥗' },
-        { id: 'salada_alface', label: 'Salada de Alface', emoji: '🥬' },
-        { id: 'salada_legumes', label: 'Salada de Legumes', emoji: '🥗' },
+      almuerzo: [
+        { id: 'a1', label: 'Arroz blanco', emoji: '🍚' },
+        { id: 'a2', label: 'Arroz integral', emoji: '🍚' },
+        { id: 'a3', label: 'Fideos', emoji: '🍝' },
+        { id: 'a4', label: 'Papa hervida', emoji: '🥔' },
+        { id: 'a5', label: 'Batata', emoji: '🍠' },
+        { id: 'a6', label: 'Lentejas', emoji: '🫘' },
+        { id: 'a7', label: 'Pollo a la plancha', emoji: '🍗' },
+        { id: 'a8', label: 'Milanesa al horno', emoji: '🥩' },
+        { id: 'a9', label: 'Carne a la plancha', emoji: '🥩' },
+        { id: 'a10', label: 'Pescado al horno', emoji: '🐟' },
+        { id: 'a11', label: 'Huevo duro', emoji: '🥚' },
+        { id: 'a12', label: 'Ensalada mixta', emoji: '🥗' },
+        { id: 'a13', label: 'Ensalada de tomate', emoji: '🍅' },
+        { id: 'a14', label: 'Verduras salteadas', emoji: '🥦' },
+        { id: 'a15', label: 'Zapallo al horno', emoji: '🎃' },
+        { id: 'a16', label: 'Choclo', emoji: '🌽' },
+        { id: 'a17', label: 'Legumbres', emoji: '🫘' },
+        { id: 'a18', label: 'Locro', emoji: '🍲' },
       ],
-      lanche: [
-        { id: 'pao_frango_l', label: 'Pão + Frango', emoji: '🥖' },
-        { id: 'pao_ovo_l', label: 'Pão + Ovo', emoji: '🍳' },
-        { id: 'pao_queijo_l', label: 'Pão + Queijo', emoji: '🧀' },
-        { id: 'pao_presunto_l', label: 'Pão + Presunto e Queijo', emoji: '🥪' },
-        { id: 'tapioca_queijo_l', label: 'Tapioca de Queijo', emoji: '🫓' },
-        { id: 'tapioca_frango_l', label: 'Tapioca de Frango', emoji: '🫓' },
-        { id: 'cuscuz_ovo_l', label: 'Cuscuz + Ovo', emoji: '🌽' },
-        { id: 'pao_queijo2_l', label: 'Pão de Queijo', emoji: '🧀' },
-        { id: 'omelete_l', label: 'Omelete', emoji: '🍳' },
-        { id: 'maca_l', label: 'Maçã', emoji: '🍎' },
-        { id: 'banana_l', label: 'Banana', emoji: '🍌' },
-        { id: 'mamao_l', label: 'Mamão', emoji: '🍊' },
-        { id: 'cafe_leite_l', label: 'Café + Leite Desnatado', emoji: '☕' },
-        { id: 'cafe_l', label: 'Café', emoji: '☕' },
-        { id: 'iogurte_l', label: 'Iogurte', emoji: '🥛' },
+      merienda: [
+        { id: 'm1', label: 'Tostadas con queso', emoji: '🧀' },
+        { id: 'm2', label: 'Medialunas', emoji: '🥐' },
+        { id: 'm3', label: 'Fruta fresca', emoji: '🍎' },
+        { id: 'm4', label: 'Banana', emoji: '🍌' },
+        { id: 'm5', label: 'Yogur', emoji: '🥛' },
+        { id: 'm6', label: 'Barrita de cereal', emoji: '🌾' },
+        { id: 'm7', label: 'Mate con galletas', emoji: '🧉' },
+        { id: 'm8', label: 'Café con leche', emoji: '☕' },
+        { id: 'm9', label: 'Licuado de frutas', emoji: '🥤' },
+        { id: 'm10', label: 'Arroz con leche', emoji: '🍚' },
+        { id: 'm11', label: 'Tostadas con palta', emoji: '🥑' },
+        { id: 'm12', label: 'Huevo duro', emoji: '🥚' },
+        { id: 'm13', label: 'Nueces y almendras', emoji: '🥜' },
+        { id: 'm14', label: 'Queso y jamón', emoji: '🧀' },
+        { id: 'm15', label: 'Té con tostadas', emoji: '🍵' },
       ],
-      janta: [
-        { id: 'arroz_j', label: 'Arroz', emoji: '🍚' },
-        { id: 'feijao_j', label: 'Feijão Preto', emoji: '🫘' },
-        { id: 'cuscuz_j', label: 'Cuscuz', emoji: '🌽' },
-        { id: 'macarrao_j', label: 'Macarrão', emoji: '🍝' },
-        { id: 'batata_doce_j', label: 'Batata Doce', emoji: '🍠' },
-        { id: 'mandioca_j', label: 'Mandioca', emoji: '🥔' },
-        { id: 'inhame_j', label: 'Inhame', emoji: '🥔' },
-        { id: 'batata_inglesa_j', label: 'Batata Inglesa', emoji: '🥔' },
-        { id: 'abobora_j', label: 'Abóbora', emoji: '🎃' },
-        { id: 'frango_j', label: 'Frango Grelhado', emoji: '🍗' },
-        { id: 'carne_assada_j', label: 'Carne Assada', emoji: '🥩' },
-        { id: 'carne_grelhada_j', label: 'Carne Grelhada', emoji: '🥩' },
-        { id: 'lombo_j', label: 'Carne de Porco Lombo', emoji: '🥩' },
-        { id: 'patinho_j', label: 'Patinho Moído', emoji: '🥩' },
-        { id: 'peixe_j', label: 'Peixe', emoji: '🐟' },
-        { id: 'salada_alface_tomate_j', label: 'Salada de Alface e Tomate', emoji: '🥗' },
-        { id: 'salada_alface_j', label: 'Salada de Alface', emoji: '🥬' },
-        { id: 'salada_legumes_j', label: 'Salada de Legumes', emoji: '🥗' },
+      cena: [
+        { id: 'c1', label: 'Arroz blanco', emoji: '🍚' },
+        { id: 'c2', label: 'Fideos', emoji: '🍝' },
+        { id: 'c3', label: 'Papa hervida', emoji: '🥔' },
+        { id: 'c4', label: 'Batata', emoji: '🍠' },
+        { id: 'c5', label: 'Pollo a la plancha', emoji: '🍗' },
+        { id: 'c6', label: 'Milanesa al horno', emoji: '🥩' },
+        { id: 'c7', label: 'Carne a la plancha', emoji: '🥩' },
+        { id: 'c8', label: 'Pescado al horno', emoji: '🐟' },
+        { id: 'c9', label: 'Huevo duro', emoji: '🥚' },
+        { id: 'c10', label: 'Omelette', emoji: '🍳' },
+        { id: 'c11', label: 'Ensalada mixta', emoji: '🥗' },
+        { id: 'c12', label: 'Ensalada de tomate', emoji: '🍅' },
+        { id: 'c13', label: 'Verduras salteadas', emoji: '🥦' },
+        { id: 'c14', label: 'Sopa de verduras', emoji: '🍲' },
+        { id: 'c15', label: 'Zapallo al horno', emoji: '🎃' },
+        { id: 'c16', label: 'Tarta de verduras', emoji: '🥧' },
+        { id: 'c17', label: 'Pizzeta integral', emoji: '🍕' },
+        { id: 'c18', label: 'Revuelto gramajo', emoji: '🍳' },
       ],
     };
 
-    const selections = { cafe: new Set(), almoco: new Set(), lanche: new Set(), janta: new Set() };
+    const selections = { desayuno: new Set(), almuerzo: new Set(), merienda: new Set(), cena: new Set() };
 
     function renderFoods(meal) {
       const container = document.getElementById(`foods-${meal}`);
@@ -364,8 +365,8 @@
         : `<span class="text-gray-500">${count}/${MIN_SELECTIONS}</span>`;
 
       if (count > 0 && !ok) {
-        const faltam = MIN_SELECTIONS - count;
-        msgEl.textContent = `Selecione pelo menos ${MIN_SELECTIONS} alimentos para continuar. Você selecionou ${count}, faltam ${faltam}.`;
+        const faltan = MIN_SELECTIONS - count;
+        msgEl.textContent = `Seleccioná al menos ${MIN_SELECTIONS} alimentos para continuar. Seleccionaste ${count}, falta${faltan > 1 ? 'n' : ''} ${faltan}.`;
         errorEl.classList.remove('hidden');
       } else {
         errorEl.classList.add('hidden');
@@ -378,22 +379,22 @@
     }
 
     function handleCheckout() {
-      const meals = ['cafe', 'almoco', 'lanche', 'janta'];
-      let valid = true;
+      const meals = ['desayuno', 'almuerzo', 'merienda', 'cena'];
+      let firstInvalid = null;
       meals.forEach(m => {
         if (selections[m].size < MIN_SELECTIONS) {
-          valid = false;
           updateCount(m);
-          document.getElementById(`section-${m}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (!firstInvalid) firstInvalid = m;
         }
       });
-      if (valid) {
-        alert('✅ Processando seu pedido... Redirecionando para pagamento!');
+      if (firstInvalid) {
+        document.getElementById(`section-${firstInvalid}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        alert('✅ ¡Procesando tu pedido! Redirigiendo al pago...');
       }
     }
 
-    // Init
-    ['cafe', 'almoco', 'lanche', 'janta'].forEach(renderFoods);
+    ['desayuno', 'almuerzo', 'merienda', 'cena'].forEach(renderFoods);
   </script>
 </body>
 </html>
