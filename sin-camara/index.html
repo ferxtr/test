@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ═══════════════════════════════════════════════════════════
+     CONFIGURACIÓN — editar solamente estas dos líneas
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+  window.CHECKOUT_URL  = "#";   // link de Hotmart o Shopify
+  window.META_PIXEL_ID = "";    // ID del pixel
+</script>
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+<title>SIN CÁMARA — 30 videos por hora, sin grabar ninguno</title>
+<meta name="description" content="Método para producir video para anuncios con IA generativa. Sin cámara, sin actriz, sin editor, sin productora.">
+<link rel="canonical" href="/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="SIN CÁMARA — 30 videos por hora, sin grabar ninguno">
+<meta property="og:description" content="Método para producir video para anuncios con IA generativa. Sin cámara, sin actriz, sin editor, sin productora.">
+<meta property="og:image" content="/public/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Archivo+Black&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#12161C;
+  --paper:#FFFFFF;
+  --mustard:#F2B01E;
+  --mustard-deep:#C98A08;
+  --navy:#16233A;
+  --grey:#6B7280;
+  --line:#E3E4E0;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  font-weight:400;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+
+/* ── una sola columna, 600px, todo centrado ───────────────── */
+.wrap{max-width:600px;margin:0 auto;padding:0 20px}
+section{padding:44px 0}
+
+/* ── tipografía ───────────────────────────────────────────── */
+h1,h2,.black{
+  font-family:"Archivo Black","Archivo",system-ui,sans-serif;
+  font-weight:400;
+  letter-spacing:-.02em;
+  line-height:1.05;
+  margin:0;
+}
+h1{font-size:clamp(34px,9.5vw,46px)}
+h2{font-size:clamp(26px,7vw,34px)}
+p{margin:0}
+.lead{font-size:17px;line-height:1.5;color:var(--ink);margin-top:16px}
+.small{font-size:13px;line-height:1.45;color:var(--grey)}
+.eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);
+}
+
+/* ── barra superior ───────────────────────────────────────── */
+.topbar{border-bottom:1px solid var(--line);padding:12px 0}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.topbar .mark{font-family:"Archivo Black",sans-serif;font-size:13px;letter-spacing:.06em}
+.topbar .role{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+
+/* ── botón ────────────────────────────────────────────────── */
+.btn{
+  display:block;width:100%;
+  background:var(--mustard);
+  color:var(--ink);
+  border:2px solid var(--ink);
+  border-radius:4px;
+  font-family:"Archivo Black",sans-serif;
+  font-size:clamp(16px,4.4vw,19px);
+  line-height:1.1;
+  text-align:center;
+  text-decoration:none;
+  padding:19px 16px;
+  cursor:pointer;
+}
+.btn:active{background:var(--mustard-deep)}
+.under{margin-top:12px;text-align:center;font-size:13px;color:var(--grey)}
+.under.on-navy{color:rgba(255,255,255,.66)}
+
+/* ── el teléfono 9:16 ─────────────────────────────────────── */
+.phone{
+  width:min(300px,78vw);
+  aspect-ratio:9/16;
+  margin:26px auto;
+  background:var(--navy);
+  border-radius:16px;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  padding:16px;
+}
+.phone video{width:100%;height:100%;object-fit:cover}
+.phone .ph{
+  font-size:13px;font-weight:500;letter-spacing:.02em;
+  color:rgba(255,255,255,.5);
+}
+
+/* ── franja mostaza ───────────────────────────────────────── */
+.band{
+  background:var(--mustard);
+  border-top:2px solid var(--ink);
+  border-bottom:2px solid var(--ink);
+}
+.grid6{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:26px;
+}
+.cell{
+  aspect-ratio:9/16;
+  background:var(--navy);
+  border-radius:8px;
+  display:flex;align-items:flex-end;
+  padding:10px 8px;
+}
+.cell span{
+  font-size:11px;font-weight:500;letter-spacing:.03em;
+  color:rgba(255,255,255,.72);
+}
+
+/* ── problema ─────────────────────────────────────────────── */
+.lines{margin-top:26px;border-top:1px solid var(--line)}
+.lines p{
+  font-family:"Archivo Black",sans-serif;
+  font-size:clamp(20px,5.6vw,25px);
+  line-height:1.15;
+  letter-spacing:-.02em;
+  padding:20px 0;
+  border-bottom:1px solid var(--line);
+}
+.close-note{margin-top:22px}
+
+/* ── qué te llevas ────────────────────────────────────────── */
+.bundle{position:relative;aspect-ratio:16/9;border:2px solid var(--ink);border-radius:6px;overflow:hidden;margin-top:24px;background:var(--navy)}
+.bundle img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.bundle .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);font-size:12px}
+.deliverables{margin-top:8px;border-top:1px solid var(--line)}
+.item{display:flex;gap:14px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--line)}
+.thumb{
+  flex:0 0 56px;width:56px;height:56px;
+  background:var(--navy);border-radius:6px;overflow:hidden;
+}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.item h3{
+  font-family:"Archivo",sans-serif;font-weight:600;font-size:16px;line-height:1.25;margin:0 0 4px;
+}
+.item p{font-size:14px;line-height:1.45;color:var(--grey)}
+
+/* ── para quién ───────────────────────────────────────────── */
+.who{margin-top:24px}
+.box{border:2px solid var(--ink);border-radius:6px;padding:22px 20px}
+.box + .box{margin-top:14px}
+.box h3{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:20px;line-height:1.1;margin:0 0 14px}
+.box ul{margin:0;padding:0;list-style:none}
+.box li{font-size:15px;line-height:1.4;padding:9px 0 9px 22px;position:relative}
+.box li::before{content:"";position:absolute;left:0;top:16px;width:10px;height:2px;background:var(--ink)}
+.box.yes{background:var(--paper);border-color:var(--ink)}
+.box.no{background:var(--navy);border-color:var(--navy);color:rgba(255,255,255,.86)}
+.box.no li::before{background:var(--mustard)}
+
+/* ── precio ───────────────────────────────────────────────── */
+.price-sec{background:var(--navy);color:var(--paper)}
+.price-sec .small{color:rgba(255,255,255,.6)}
+.cover{position:relative;width:min(220px,58vw);margin:0 auto 26px;border-radius:6px;overflow:hidden;background:#0E1728;aspect-ratio:3/4}
+.cover .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:12px}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.tag{
+  font-family:"Archivo Black",sans-serif;
+  font-size:clamp(56px,17vw,76px);
+  line-height:1;
+  color:var(--mustard);
+  margin-top:18px;
+}
+.bump{
+  border:2px dashed rgba(255,255,255,.4);
+  border-radius:6px;
+  padding:16px 18px;
+  margin:26px 0;
+  font-size:14px;line-height:1.45;
+  color:rgba(255,255,255,.9);
+}
+.bump b{font-family:"Archivo Black",sans-serif;font-weight:400;color:var(--mustard);white-space:nowrap}
+
+/* ── preguntas ────────────────────────────────────────────── */
+.faq{margin-top:22px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  list-style:none;cursor:pointer;
+  font-weight:600;font-size:16px;line-height:1.3;
+  padding:18px 34px 18px 0;position:relative;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";position:absolute;right:4px;top:16px;
+  font-family:"Archivo Black",sans-serif;font-size:20px;color:var(--mustard-deep);
+}
+.faq details[open] summary::after{content:"–"}
+.faq .a{font-size:15px;line-height:1.5;color:var(--grey);padding:0 0 20px}
+
+/* ── footer ───────────────────────────────────────────────── */
+footer{border-top:1px solid var(--line);padding:26px 0 40px}
+footer p{font-size:12px;line-height:1.5;color:var(--grey)}
+
+/* ── accesibilidad ────────────────────────────────────────── */
+:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+.band :focus-visible{outline-color:var(--ink)}
+.price-sec :focus-visible,.box.no :focus-visible{outline-color:var(--mustard)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 1 ── barra superior ─────────────────────────────────────── -->
+<header class="topbar">
+  <div class="wrap">
+    <span class="mark">SIN·CÁMARA</span>
+    <span class="role">Método de producción</span>
+  </div>
+</header>
+
+<!-- 2 ── hero ──────────────────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <h1>Este video no lo grabé.</h1>
+    <p class="lead">No hay cámara, no hay actriz, no hay editor y no hay productora. Salió de una computadora en veinte minutos.</p>
+
+    <!-- Para poner el video real, reemplazar el contenido de .phone por:
+         <video src="/video.mp4" autoplay muted loop playsinline></video> -->
+    <div class="phone">
+      <span class="ph">Acá va tu video de 30s</span>
+    </div>
+
+    <a class="btn" data-buy href="#">Quiero el método — US$25</a>
+    <p class="under">Acceso inmediato · Garantía de 7 días</p>
+  </div>
+</section>
+
+<!-- 3 ── franja mostaza ────────────────────────────────────── -->
+<section class="band">
+  <div class="wrap">
+    <h2>Todo lo que ves acá está hecho así.</h2>
+    <p class="lead">Ninguna de estas personas existe. Ninguno de estos videos se grabó.</p>
+
+    <!-- Estos seis bloques van con frames de videos reales hechos con el método.
+         Quedan como placeholder hasta que existan los videos. -->
+    <div class="grid6">
+      <div class="cell"><span>Indumentaria</span></div>
+      <div class="cell"><span>Cosmética</span></div>
+      <div class="cell"><span>Deco</span></div>
+      <div class="cell"><span>Suplementos</span></div>
+      <div class="cell"><span>Accesorios</span></div>
+      <div class="cell"><span>Servicios</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 ── problema ──────────────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <h2>Si vendes algo, ya conoces esto.</h2>
+    <div class="lines">
+      <p>Tu mejor anuncio se quema a los diez días.</p>
+      <p>Producir uno nuevo te toma un día entero.</p>
+      <p>Haces cuatro por mes y necesitas veinte.</p>
+    </div>
+    <p class="small close-note">El problema nunca fue el algoritmo. Es que produces de a uno.</p>
+  </div>
+</section>
+
+<!-- 5 ── qué te llevas ─────────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <h2>Qué te llevas</h2>
+
+    <div class="bundle">
+      <img src="/public/img/bundle.png" alt="La guía, los videos de clase y las carpetas de prompts y guiones." onerror="this.remove()">
+      <div class="ph">bundle.png</div>
+    </div>
+
+    <div class="deliverables">
+      <div class="item">
+        <div class="thumb"><img src="/public/img/item-1.png" alt="" onerror="this.remove()"></div>
+        <div>
+          <h3>La guía del método</h3>
+          <p>El sistema completo, de la idea al video publicado.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="thumb"><img src="/public/img/item-2.png" alt="" onerror="this.remove()"></div>
+        <div>
+          <h3>6 videos de pantalla</h3>
+          <p>Yo produciendo en vivo, sin cortes ni magia.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="thumb"><img src="/public/img/item-3.png" alt="" onerror="this.remove()"></div>
+        <div>
+          <h3>50 prompts probados</h3>
+          <p>Los que devuelven material usable, no los que devuelven basura.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="thumb"><img src="/public/img/item-4.png" alt="" onerror="this.remove()"></div>
+        <div>
+          <h3>30 guiones escritos</h3>
+          <p>Para negocios de producto. Copiar, pegar, cambiar el nombre.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="thumb"><img src="/public/img/item-5.png" alt="" onerror="this.remove()"></div>
+        <div>
+          <h3>Biblioteca de 50 hooks</h3>
+          <p>Con la estructura exacta de los primeros 3 segundos.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="thumb"><img src="/public/img/item-6.png" alt="" onerror="this.remove()"></div>
+        <div>
+          <h3>El checklist de errores</h3>
+          <p>Manos rotas, texto ilegible, encuadres arruinados. Dos meses de golpes, resumidos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 ── para quién es ─────────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <h2>Para quién es</h2>
+    <div class="who">
+      <div class="box yes">
+        <h3>Es para ti si…</h3>
+        <ul>
+          <li>Ya vendes algo y necesitas contenido todas las semanas</li>
+          <li>Pautas y se te queman los creativos</li>
+          <li>No quieres aparecer en cámara</li>
+          <li>No quieres contratar ni editor ni productora</li>
+        </ul>
+      </div>
+      <div class="box no">
+        <h3>No es para ti si…</h3>
+        <ul>
+          <li>Estás buscando cómo empezar un negocio desde cero</li>
+          <li>Buscas un método para ganar dinero rápido</li>
+          <li>Esperas que alguien te haga los videos por ti</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 ── precio ────────────────────────────────────────────── -->
+<section class="price-sec">
+  <div class="wrap">
+    <div class="cover">
+      <img src="/public/img/cover.png" alt="Tapa del método SIN CÁMARA" onerror="this.remove()">
+      <div class="ph">cover.png</div>
+    </div>
+
+    <h2>Precio</h2>
+    <p class="tag black">US$25</p>
+    <p class="small">Pago único. Acceso inmediato.</p>
+
+    <div class="bump">Suma en el checkout: 200 guiones extra, separados por rubro. <b>+US$9</b></div>
+
+    <a class="btn" data-buy href="#">Quiero el método — US$25</a>
+    <p class="under on-navy">Si en 7 días te parece que no sirve, te devuelvo el dinero.</p>
+  </div>
+</section>
+
+<!-- 8 ── preguntas ─────────────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <h2>Preguntas</h2>
+    <div class="faq">
+      <details>
+        <summary>¿Necesito saber editar?</summary>
+        <p class="a">No. Todo el montaje se hace en CapCut, que es gratis, y está explicado paso a paso.</p>
+      </details>
+      <details>
+        <summary>¿Necesito pagar herramientas aparte?</summary>
+        <p class="a">Sí. El generador de video tiene un costo propio, aparte de este método. Te digo exactamente cuál uso y cuánto sale antes de que compres, para que no te encuentres con una sorpresa.</p>
+      </details>
+      <details>
+        <summary>¿Sirve si vendo servicios y no productos?</summary>
+        <p class="a">Sí. Los 30 guiones incluidos son para negocios de producto, pero el método y los prompts funcionan igual. Adaptas el guion.</p>
+      </details>
+      <details>
+        <summary>¿Tengo que aparecer o poner mi voz?</summary>
+        <p class="a">No. Ese es el punto del método: la persona que habla en el video no existe.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 9 ── cierre ────────────────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <h2>El video de arriba tardó veinte minutos.</h2>
+
+    <div class="phone">
+      <span class="ph">Acá va tu video de 30s</span>
+    </div>
+
+    <a class="btn" data-buy href="#">Quiero el método — US$25</a>
+    <p class="under">Acceso inmediato · Garantía de 7 días</p>
+  </div>
+</section>
+
+<!-- 10 ── footer ───────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <p>Sin Cámara · Este método enseña a producir video. No promete resultados de ventas ni ingresos.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var CHECKOUT = window.CHECKOUT_URL || "#";
+  var PIXEL    = window.META_PIXEL_ID || "";
+  var buttons  = document.querySelectorAll("[data-buy]");
+
+  // href de todos los botones de compra
+  for (var i = 0; i < buttons.length; i++) buttons[i].href = CHECKOUT;
+
+  if (!PIXEL) return;
+
+  // Meta Pixel
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+  (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init', PIXEL);
+  fbq('track', 'PageView');
+
+  // InitiateCheckout SOLO en los botones de compra
+  for (var j = 0; j < buttons.length; j++) {
+    buttons[j].addEventListener('click', function () {
+      fbq('track', 'InitiateCheckout', { value: 25, currency: 'USD' });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
